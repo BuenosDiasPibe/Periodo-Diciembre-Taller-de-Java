@@ -41,8 +41,8 @@ public class Pantalla2 extends JFrame{
         panel.add(segundolabel);
         panel.add(nacimiento);
 
+        panel.add(new JLabel("Estudios"));
         panel.add(lista);
-        panel.add(new JLabel(""));
 
         panel.add(hijos);
         panel.add(new JLabel(""));
