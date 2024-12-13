@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `recuperacion`.`personas` (
  `idestudio` INT NULL DEFAULT NULL,
 
  PRIMARY KEY (`idpersona`),
- create INDEX `fk_estudio_idx` (`idestudio` ASC),
+ INDEX `fk_estudio_idx` (`idestudio` ASC),
  CONSTRAINT `fk_estudio`
  FOREIGN KEY (`idestudio`)
  REFERENCES `recuperacion`.`estudios` (`idestudio`));

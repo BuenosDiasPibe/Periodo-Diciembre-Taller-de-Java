@@ -5,10 +5,13 @@ public class Persona {
     private int idPersona;
     private String nombre;
     private LocalDate fechaNacimiento;
-    private int nivelDeEstudios;
     private boolean tieneHijos;
+    
+    private Estudios nivelDeEstudios;
 
-    public Persona(int idPersona, String nombre, LocalDate fechaNacimiento, int nivelDeEstudios, boolean tieneHijos) {
+    public Persona(){}
+
+        public Persona(int idPersona, String nombre, LocalDate fechaNacimiento, Estudios nivelDeEstudios, boolean tieneHijos) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
@@ -35,12 +38,16 @@ public class Persona {
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-    public int getNivelDeEstudios() {
+
+
+    public Estudios getNivelDeEstudios() {
         return nivelDeEstudios;
     }
-    public void setNivelDeEstudios(int nivelDeEstudios) {
+    public void setNivelDeEstudios(Estudios nivelDeEstudios) {
         this.nivelDeEstudios = nivelDeEstudios;
     }
+
+    
     public boolean isTieneHijos() {
         return tieneHijos;
     }

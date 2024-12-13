@@ -1,6 +1,7 @@
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.sql.Connection;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,14 +19,17 @@ public class Pantalla1 extends JFrame{
     JButton modificar = new Boton("modificar");
 
     JTable tabla = new JTable(1,4);
+    
     JScrollPane scroll = new JScrollPane(tabla);
 
-    private String[] lista = {"a","b","c"};
+    private String[] lista = {"nombre", "fecha nacimiento", "hijos/as?, nivel estudios"};
 
-    public Pantalla1() {
+    public Pantalla1(Connection conn) {
+
         setTitle("Pantalla 1");
         setSize(800, 600);
         setResizable(false);
+        scroll.setViewportView();
         setVisible(true);
         
         setLayout(new FlowLayout());
@@ -35,13 +39,13 @@ public class Pantalla1 extends JFrame{
 
         nuevo.addActionListener(e -> {
             dispose();
-            Pantalla2 pantalla2 = new Pantalla2();
+            Pantalla2 pantalla2 = new Pantalla2(conn);
         });
 
         modificar.addActionListener(l -> {
             dispose();
-            Pantalla2 pantalla = new Pantalla2();
-            pantalla.modifyInstance("nombre", "Nacimiento", lista, false);
+            Pantalla2 pantalla = new Pantalla2(conn);
+            pantalla.modifyInstance(new Persona()); //TODO get the selected row
         });
 
         add(scroll);

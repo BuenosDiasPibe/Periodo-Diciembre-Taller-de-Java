@@ -1,18 +1,15 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+import java.sql.*;
 public class ConnectionDB {
     public static Connection getConnection() {
         Connection conn = null;
         try {
-            String url = "jdbc:mysql://localhost:3306/tp_final";
-            String user = "root";
-            String password = "admin";
+            String url = "jdbc:mysql://localhost:3306/recuperacion";
+            String user = "admin";
+            String password = "Mica";
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connection established.");
         } catch (SQLException e) {
-            System.out.println("Connection failed: " + e.getMessage());
+            System.out.println("Connection Failed " + e.getMessage());
         }
         return conn;
     }

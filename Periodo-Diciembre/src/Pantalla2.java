@@ -1,6 +1,8 @@
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.sql.Connection;
+import java.util.Vector;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Pantalla2 extends JFrame{
-
+    
     GridLayout layout = new GridLayout(5,2);
 
     JPanel panel = new JPanel();
@@ -20,7 +22,7 @@ public class Pantalla2 extends JFrame{
     JCheckBox hijos = new JCheckBox("Hijos");
     Boton submit = new Boton("Submit");
 
-    public Pantalla2() {
+    public Pantalla2(Connection conn) {
         setTitle("Pantalla 1");
         setSize(800, 600);
         setResizable(false);
@@ -48,7 +50,7 @@ public class Pantalla2 extends JFrame{
 
         submit.addActionListener(e -> {
             dispose();
-            Pantalla1 pantalla1 = new Pantalla1();
+            Pantalla1 pantalla1 = new Pantalla1(conn);
         });
 
         add(panel);
@@ -56,10 +58,10 @@ public class Pantalla2 extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void modifyInstance(String nombre, String Nacimiento, String[] lista, boolean hijos){
-        this.nombre.setText(nombre);
-        this.nacimiento.setText(Nacimiento);
-        this.lista.setListData(lista);
-        this.hijos.setSelected(hijos);
+    public void modifyInstance(Persona personaUpdate){
+        this.nombre.setText(personaUpdate.getNombre());
+        this.nacimiento.setText("" + personaUpdate.getFechaNacimiento());
+        this.lista.setListData(new Vector<String>()); //TODO crear una clase estudiosDAO y añadir el metodo un findAll, luego, implementarlo en la lista
+        this.hijos.setSelected(personaUpdate.isTieneHijos());
     }
 }
