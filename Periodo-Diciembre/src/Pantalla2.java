@@ -14,9 +14,6 @@ public class Pantalla2 extends JFrame{
 
     JPanel panel = new JPanel();
 
-    JLabel primerlabel = new JLabel("Nombre");
-    JLabel segundolabel = new JLabel("Nacimiento");
-
     JTextField nombre = new JTextField(16);
     JTextField nacimiento = new JTextField(16);
     JList lista = new JList();
@@ -35,10 +32,10 @@ public class Pantalla2 extends JFrame{
 
         panel.setLayout(layout);
 
-        panel.add(primerlabel);
+        panel.add(new JLabel("Nombre: "));
         panel.add(nombre);
 
-        panel.add(segundolabel);
+        panel.add(new JLabel("Nacimiento"));
         panel.add(nacimiento);
 
         panel.add(new JLabel("Estudios"));
@@ -46,11 +43,23 @@ public class Pantalla2 extends JFrame{
 
         panel.add(hijos);
         panel.add(new JLabel(""));
-        
+
         panel.add(submit);
+
+        submit.addActionListener(e -> {
+            dispose();
+            Pantalla1 pantalla1 = new Pantalla1();
+        });
 
         add(panel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void modifyInstance(String nombre, String Nacimiento, String[] lista, boolean hijos){
+        this.nombre.setText(nombre);
+        this.nacimiento.setText(Nacimiento);
+        this.lista.setListData(lista);
+        this.hijos.setSelected(hijos);
     }
 }

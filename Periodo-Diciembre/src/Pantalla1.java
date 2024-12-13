@@ -17,8 +17,10 @@ public class Pantalla1 extends JFrame{
     JButton eliminar = new Boton("eliminar");
     JButton modificar = new Boton("modificar");
 
-    JTable tabla = new JTable(1,3);
+    JTable tabla = new JTable(1,4);
     JScrollPane scroll = new JScrollPane(tabla);
+
+    private String[] lista = {"a","b","c"};
 
     public Pantalla1() {
         setTitle("Pantalla 1");
@@ -31,10 +33,21 @@ public class Pantalla1 extends JFrame{
         layout.setVgap(20);
         botonesPanel.setLayout(layout);
 
+        nuevo.addActionListener(e -> {
+            dispose();
+            Pantalla2 pantalla2 = new Pantalla2();
+        });
+
+        modificar.addActionListener(l -> {
+            dispose();
+            Pantalla2 pantalla = new Pantalla2();
+            pantalla.modifyInstance("nombre", "Nacimiento", lista, false);
+        });
+
         add(scroll);
-        botonesPanel.add(this.nuevo); //TODO añadir funcionalidad para cambiar entre pantallas
+        botonesPanel.add(this.nuevo);
         botonesPanel.add(this.eliminar);
-        botonesPanel.add(this.modificar); //TODO añadir funcionalidad para cambiar entre pantallas
+        botonesPanel.add(this.modificar);
 
         add(botonesPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
