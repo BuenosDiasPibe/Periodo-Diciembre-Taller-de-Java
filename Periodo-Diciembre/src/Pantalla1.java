@@ -21,19 +21,23 @@ public class Pantalla1 extends JFrame{
     JTable tabla = new JTable(1,4);
     JScrollPane scroll = new JScrollPane(cargarTabla());
 
-    private static String[] lista = {"a","b","c","d","e"};
+    private static String[] lista = {"Nombre","FechaNacimiento","NiveldeEstudios","Hijo/a?"};
 
     private JTable cargarTabla(){
         PersonaDAOImplement personaDAO = PersonaDAOImplement.getInstance();
         List<Persona> persona = personaDAO.findAll();
 
-        Object[][] data = new Object[persona.size()][5];
+        Object[][] data = new Object[persona.size()][4];
         for(int i = 0; i < persona.size(); i++){
-            data[i][0] = persona.get(i).getIdPersona();
-            data[i][1] = persona.get(i).getNombre();
-            data[i][2] = persona.get(i).getFechaNacimiento();
-            data[i][3] = persona.get(i).getNivelDeEstudios().getNombre();
-            data[i][4] = persona.get(i).isTieneHijos();
+            //data[i][0] = persona.get(i).getIdPersona(); //IdPersona no es requerido
+            data[i][0] = persona.get(i).getNombre();
+            data[i][1] = persona.get(i).getFechaNacimiento();
+            data[i][2] = persona.get(i).getNivelDeEstudios().getNombre();
+            if(persona.get(i).isTieneHijos() == true){
+                data[i][3] = "Si";
+            }else{
+                data[i][3] = "No";
+            }
         }
         JTable table = new JTable(data, lista);
 
@@ -60,7 +64,7 @@ public class Pantalla1 extends JFrame{
         modificar.addActionListener(l -> {
             dispose();
             Pantalla2 pantalla = new Pantalla2();
-            pantalla.modifyInstance(new Persona());
+            pantalla.modifyInstance(PersonaDAOImplement.getInstance().findById(1));
         });
 
         add(scroll);

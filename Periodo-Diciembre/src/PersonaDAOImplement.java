@@ -30,7 +30,7 @@ public class PersonaDAOImplement implements personaDAO {
             preparedStatement.setString(1, persona.getNombre());
             preparedStatement.setDate(2, new Date(persona.getFechaNacimiento().getTime()));
             preparedStatement.setBoolean(3, persona.isTieneHijos());
-            preparedStatement.setBoolean(3, persona.isTieneHijos());
+            preparedStatement.setInt(4, persona.getNivelDeEstudios().getIdEstudio());
 
             int filasAfectadas = preparedStatement.executeUpdate();
             if(filasAfectadas > 0){
@@ -86,7 +86,7 @@ public class PersonaDAOImplement implements personaDAO {
         PreparedStatement statement = null;
         ResultSet result = null;
 
-        String queryFindId = "SELECT personas.*, estudios.nombre, " + "FROM personas INNER JOIN personas.estudio  = estudios";
+        String queryFindId = "SELECT * FROM personas WHERE idpersona = ?;";
 
         try {
             statement = connection.prepareStatement(queryFindId);
@@ -94,11 +94,12 @@ public class PersonaDAOImplement implements personaDAO {
             result = statement.executeQuery();
             if(result.next()){
                 Persona persona = new Persona();
+                Estudios estudio = new Estudios();
                 persona.setIdPersona(result.getInt("idpersona"));
                 persona.setNombre(result.getString("nombre"));
                 persona.setFechaNacimiento(result.getDate("nacimiento"));
-                persona.getNivelDeEstudios().setIdEstudio(result.getInt("idestudio"));
-                persona.getNivelDeEstudios().setNombre(result.getString("nombre")); 
+                estudio.setIdEstudio(result.getInt("idestudio"));
+                persona.setNivelDeEstudios(estudio);
                 return persona;
             }
         } catch (SQLException e) {

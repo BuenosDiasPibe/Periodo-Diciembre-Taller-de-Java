@@ -32,7 +32,7 @@ public class Pantalla2 extends JFrame{
         }
         return new JComboBox<String>(data);
     }
-    
+    private JComboBox combazobox = cargarComboBox();
 
     public Pantalla2() {
         setTitle("Pantalla 1");
@@ -53,7 +53,7 @@ public class Pantalla2 extends JFrame{
         panel.add(nacimiento);
 
         panel.add(new JLabel("Estudios"));
-        panel.add(cargarComboBox());
+        panel.add(combazobox);
 
         panel.add(hijos);
         panel.add(new JLabel(""));
@@ -71,6 +71,9 @@ public class Pantalla2 extends JFrame{
     }
 
     public void modifyInstance(Persona persona){
-
+        nombre.setText(persona.getNombre());
+        nacimiento.setText(persona.getFechaNacimiento().toString());
+        hijos.setSelected(persona.isTieneHijos());
+        combazobox.setSelectedItem(persona.getNivelDeEstudios().getNombre());
     }
 }
