@@ -8,19 +8,18 @@ public class DatabaseConnection {
     public static Connection getConnection(){
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/recuperacion","root","Mica");
-            System.out.println("Connection established.");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/recuperacion","root","admin");
+            
         } catch (SQLException e) {
-            System.out.println("Connection Failed " + e.getMessage());
+            e.printStackTrace(); //TODO create exception
         }
         return connection;
     }
 
-    public static void closeConnection(Connection connection){
+    public void closeConnection(Connection connection){
         if(connection != null){
             try {
                 connection.close();
-                System.out.println("closed");
             } catch (SQLException e) {
                 e.printStackTrace(); //TODO create exception
             }

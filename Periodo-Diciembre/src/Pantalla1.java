@@ -1,7 +1,7 @@
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.sql.Connection;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,17 +19,32 @@ public class Pantalla1 extends JFrame{
     JButton modificar = new Boton("modificar");
 
     JTable tabla = new JTable(1,4);
-    
-    JScrollPane scroll = new JScrollPane(tabla);
+    JScrollPane scroll = new JScrollPane(cargarTabla());
 
-    private String[] lista = {"nombre", "fecha nacimiento", "hijos/as?, nivel estudios"};
+    private static String[] lista = {"a","b","c","d","e"};
 
-    public Pantalla1(Connection conn) {
+    private JTable cargarTabla(){
+        PersonaDAOImplement personaDAO = PersonaDAOImplement.getInstance();
+        List<Persona> persona = personaDAO.findAll();
 
+        Object[][] data = new Object[persona.size()][5];
+        for(int i = 0; i < persona.size(); i++){
+            data[i][0] = persona.get(i).getIdPersona();
+            data[i][1] = persona.get(i).getNombre();
+            data[i][2] = persona.get(i).getFechaNacimiento();
+            data[i][3] = persona.get(i).getNivelDeEstudios().getNombre();
+            data[i][4] = persona.get(i).isTieneHijos();
+        }
+        JTable table = new JTable(data, lista);
+
+        return table;
+    }
+
+
+    public Pantalla1() {
         setTitle("Pantalla 1");
         setSize(800, 600);
         setResizable(false);
-        //scroll.setViewportView();
         setVisible(true);
         
         setLayout(new FlowLayout());
@@ -39,13 +54,13 @@ public class Pantalla1 extends JFrame{
 
         nuevo.addActionListener(e -> {
             dispose();
-            Pantalla2 pantalla2 = new Pantalla2(conn);
+            Pantalla2 pantalla2 = new Pantalla2();
         });
 
         modificar.addActionListener(l -> {
             dispose();
-            Pantalla2 pantalla = new Pantalla2(conn);
-            pantalla.modifyInstance(new Persona()); //TODO get the selected row
+            Pantalla2 pantalla = new Pantalla2();
+            pantalla.modifyInstance(new Persona());
         });
 
         add(scroll);
@@ -56,18 +71,5 @@ public class Pantalla1 extends JFrame{
         add(botonesPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
-    // private JTable cargarPersonas(){
-    //     PersonaDAOImplement persona = new PersonaDAOImplement();
-    //     List<Persona> personas = persona.findAll();
-
-    //     Object[][] data = new Object[personas.size()][4];
-    //     for(int i = 0; i < personas.size(); i++){
-    //         data[i][0] = personas.get(i).getNombre();
-    //         data[i][1] = personas.get(i).getFechaNacimiento();
-    //         data[i][2] = personas.get(i).getHijos();
-    //         data[i][3] = personas.get(i).getNivelEstudios();
-    //     }
-        
-    // }
+    
 }

@@ -1,17 +1,16 @@
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Persona {
     private int idPersona;
     private String nombre;
-    private LocalDate fechaNacimiento;
-    private boolean tieneHijos;
-    
+    private Date fechaNacimiento;
     private Estudios nivelDeEstudios;
+    private boolean tieneHijos;
 
     public Persona(){}
 
-        public Persona(int idPersona, String nombre, LocalDate fechaNacimiento, Estudios nivelDeEstudios, boolean tieneHijos) {
+    public Persona(int idPersona, String nombre, Date fechaNacimiento, Estudios nivelDeEstudios, boolean tieneHijos) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
@@ -32,22 +31,18 @@ public class Persona {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public LocalDate getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-
-
     public Estudios getNivelDeEstudios() {
         return nivelDeEstudios;
     }
     public void setNivelDeEstudios(Estudios nivelDeEstudios) {
         this.nivelDeEstudios = nivelDeEstudios;
     }
-
-    
     public boolean isTieneHijos() {
         return tieneHijos;
     }

@@ -2,7 +2,8 @@ public class Estudios {
     private int idEstudio;
     private String nombre;
 
-    public Estudios() {}
+    public Estudios(){}
+
     public Estudios(int idEstudio, String nombre) {
         this.idEstudio = idEstudio;
         this.nombre = nombre;
