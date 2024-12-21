@@ -67,4 +67,26 @@ public class EstudiosDAOImplement implements EstudiosDAO {
         }
         return null;
     }
+
+    public Estudios findByName(String name){
+        ResultSet result = null;
+
+        String queryFindName = "SELECT estudios.* FROM estudios WHERE nombre = ?";
+        try (PreparedStatement statement = connection.prepareStatement(queryFindName)){
+            statement.setString(1,name);
+            result = statement.executeQuery();
+
+            if(result.next()){
+                return new Estudios(
+                    result.getInt("idestudio"),
+                    result.getString("nombre")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally{
+            DatabaseConnection.closeResultSet(result);
+        }
+        return null;
+    }
 }

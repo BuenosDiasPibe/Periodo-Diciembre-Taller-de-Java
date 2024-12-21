@@ -18,8 +18,9 @@ public class Pantalla1 extends JFrame{
     JButton eliminar = new Boton("eliminar");
     JButton modificar = new Boton("modificar");
 
-    JTable tabla = new JTable(1,4);
-    JScrollPane scroll = new JScrollPane(cargarTabla());
+    JTable skibidiboy = cargarTabla();
+
+    JScrollPane scroll = new JScrollPane(skibidiboy);
 
     private static String[] lista = {"Nombre","FechaNacimiento","NiveldeEstudios","Hijo/a?"};
 
@@ -64,9 +65,11 @@ public class Pantalla1 extends JFrame{
         modificar.addActionListener(l -> {
             dispose();
             Pantalla2 pantalla = new Pantalla2();
+            
             pantalla.modifyInstance(PersonaDAOImplement.getInstance().findById(1));
         });
 
+        
         add(scroll);
         botonesPanel.add(this.nuevo);
         botonesPanel.add(this.eliminar);

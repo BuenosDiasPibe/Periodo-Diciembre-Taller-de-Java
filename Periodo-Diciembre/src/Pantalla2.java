@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import java.sql.Date;
 public class Pantalla2 extends JFrame{
 
     GridLayout layout = new GridLayout(5,2);
@@ -22,9 +22,12 @@ public class Pantalla2 extends JFrame{
     JCheckBox hijos = new JCheckBox("Hijos");
     Boton submit = new Boton("Submit");
 
+    private Persona persona = null;
+
     private JComboBox cargarComboBox(){
         EstudiosDAOImplement estudiosDAO = EstudiosDAOImplement.getInstance();
         List<Estudios> estudio = estudiosDAO.findAll();
+
 
         String[] data = new String[estudio.size()];
         for(int i = 0; i < estudio.size(); i++){
@@ -61,6 +64,20 @@ public class Pantalla2 extends JFrame{
         panel.add(submit);
 
         submit.addActionListener(e -> {
+            PersonaDAOImplement personaDAO = PersonaDAOImplement.getInstance();
+            Persona personasss = new Persona();
+            personasss.setNombre(nombre.getText());
+            personasss.setFechaNacimiento(Date.valueOf(nacimiento.getText()));
+            personasss.setTieneHijos(hijos.isSelected());
+            Estudios estudio = EstudiosDAOImplement.getInstance().findByName(combazobox.getSelectedItem().toString());
+            personasss.setNivelDeEstudios(estudio);
+
+            if(persona == null){
+                personaDAO.insert(personasss);
+            }else{
+                personasss.setIdPersona(this.persona.getIdPersona());
+                personaDAO.update(personasss);
+            }
             dispose();
             Pantalla1 pantalla1 = new Pantalla1();
         });
@@ -71,9 +88,12 @@ public class Pantalla2 extends JFrame{
     }
 
     public void modifyInstance(Persona persona){
+        this.persona = persona;
         nombre.setText(persona.getNombre());
         nacimiento.setText(persona.getFechaNacimiento().toString());
         hijos.setSelected(persona.isTieneHijos());
         combazobox.setSelectedItem(persona.getNivelDeEstudios().getNombre());
     }
+
+
 }

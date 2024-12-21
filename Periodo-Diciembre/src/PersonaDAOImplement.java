@@ -39,7 +39,7 @@ public class PersonaDAOImplement implements personaDAO {
                     int id = result.getInt(1);
                     persona.setIdPersona(id);
                 }
-                DatabaseConnection.closeResultSet(result);  
+                DatabaseConnection.closeResultSet(result);
             }
        } catch (Exception e) {
         e.printStackTrace();
@@ -86,7 +86,7 @@ public class PersonaDAOImplement implements personaDAO {
         PreparedStatement statement = null;
         ResultSet result = null;
 
-        String queryFindId = "SELECT * FROM personas WHERE idpersona = ?;";
+        String queryFindId = "select * from personas LEFT OUTER join estudios on personas.idestudio = estudios.idestudio WHERE idpersona = ?;";
 
         try {
             statement = connection.prepareStatement(queryFindId);
@@ -99,7 +99,10 @@ public class PersonaDAOImplement implements personaDAO {
                 persona.setNombre(result.getString("nombre"));
                 persona.setFechaNacimiento(result.getDate("nacimiento"));
                 estudio.setIdEstudio(result.getInt("idestudio"));
+                estudio.setNombre(result.getString("nombre"));
                 persona.setNivelDeEstudios(estudio);
+                persona.setTieneHijos(result.getBoolean("hijoas"));
+
                 return persona;
             }
         } catch (SQLException e) {
@@ -116,7 +119,7 @@ public class PersonaDAOImplement implements personaDAO {
         PreparedStatement statement = null;
         ResultSet result = null;
         try{
-            statement = connection.prepareStatement("SELECT * FROM personas");
+            statement = connection.prepareStatement("select * from personas");
 
             result = statement.executeQuery();
             List<Persona> personas = new ArrayList<>();
